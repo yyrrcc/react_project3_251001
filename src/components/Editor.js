@@ -1,8 +1,9 @@
 import "../components/css/Editor.css";
 import { useState } from "react";
-import { getFormattedDate } from "../Utils";
+import { getFormattedDate, emotionList } from "../Utils";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import EmotionItem from "./EmotionItem";
 
 // props : initData (수정 할 기존 입력된 내용), onSubmit (작성 완료 버튼)
 const Editor = ({ initData, onSubmit }) => {
@@ -33,6 +34,11 @@ const Editor = ({ initData, onSubmit }) => {
     navigate(-1); // 뒤로 가기 이벤트 1회 동작
   };
 
+  // 감정 이미지 클릭하면 호출 할 이벤트 핸들러
+  const handleChangeEmotion = (emotionId) => {
+    setState({ ...state, emotionId });
+  };
+
   return (
     <>
       <div className="Editor">
@@ -44,6 +50,12 @@ const Editor = ({ initData, onSubmit }) => {
         </div>
         <div className="editor_section">
           <h4>오늘의 감정</h4>
+          <div className="input_wrapper emotion_list_wrapper">
+            {/* 이모지를 배열로 만들어서 map으로 가져오기 */}
+            {emotionList.map((it) => (
+              <EmotionItem key={it.id} {...it} onClick={handleChangeEmotion} isSelected={it.id === state.emotionId} />
+            ))}
+          </div>
         </div>
         <div className="editor_section">
           <h4>오늘의 일기</h4>

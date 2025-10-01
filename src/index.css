@@ -14,12 +14,9 @@
   font-family: "Orbit", sans-serif;
   font-size: 18px;
   font-weight: bold;
+  color: #262d20;
 }
 
 body {
-  /* font-family: "Orbit", sans-serif;
-  font-size: 18px;
-  font-weight: bold; */
   margin: 0;
-  /* background-color: rgb(124, 124, 124); 개구린 바탕화면 색 눈 아파서 적용해둠 */
 }

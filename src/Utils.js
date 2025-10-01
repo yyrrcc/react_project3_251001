@@ -1,8 +1,8 @@
-import emotion1 from "./images/angry.png";
-import emotion2 from "./images/cry.png";
-import emotion3 from "./images/neutral.png";
-import emotion4 from "./images/smile.png";
-import emotion5 from "./images/best.png";
+import emotion1 from "./images/emotion1.png";
+import emotion2 from "./images/emotion2.png";
+import emotion3 from "./images/emotion3.png";
+import emotion4 from "./images/emotion4.png";
+import emotion5 from "./images/emotion5.png";
 
 // 숫자에 맞게 이미지 가져오기
 export const getEmotionImgById = (emotionId) => {
@@ -23,6 +23,35 @@ export const getEmotionImgById = (emotionId) => {
       return null;
   }
 };
+
+// 이미지 랜더링하기 (js에서 사용할 수 있는 데이터 형태로)
+export const emotionList = [
+  {
+    id: 1,
+    name: "완전좋음",
+    img: getEmotionImgById(1),
+  },
+  {
+    id: 2,
+    name: "좋음",
+    img: getEmotionImgById(2),
+  },
+  {
+    id: 3,
+    name: "그럭저럭",
+    img: getEmotionImgById(3),
+  },
+  {
+    id: 4,
+    name: "나쁨",
+    img: getEmotionImgById(4),
+  },
+  {
+    id: 5,
+    name: "완전나쁨",
+    img: getEmotionImgById(5),
+  },
+];
 
 // 날짜 포맷팅 해주는 함수 (yyyy-mm-dd)
 export const getFormattedDate = (targetDate) => {
