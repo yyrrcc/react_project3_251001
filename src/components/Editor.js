@@ -1,6 +1,8 @@
 import "../components/css/Editor.css";
 import { useState } from "react";
 import { getFormattedDate } from "../Utils";
+import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 
 // props : initData (수정 할 기존 입력된 내용), onSubmit (작성 완료 버튼)
 const Editor = ({ initData, onSubmit }) => {
@@ -11,6 +13,9 @@ const Editor = ({ initData, onSubmit }) => {
     content: "",
   });
 
+  // 클라이언트 사이드 렌더링 방식으로 페이지를 이동하는 함수를 반환
+  const navigate = useNavigate();
+
   const handleChangeDate = (e) => {
     // 객체 안에 있는 key를 가져와서 값 변경해주기!
     setState({ ...state, date: e.target.value });
@@ -18,6 +23,14 @@ const Editor = ({ initData, onSubmit }) => {
 
   const handleChangeContent = (e) => {
     setState({ ...state, content: e.target.value });
+  };
+
+  const handleSubmit = () => {
+    onSubmit(state); // 유저가 입력한 1개의 일기 객체를 보내준다
+  };
+
+  const handleOnGoBack = () => {
+    navigate(-1); // 뒤로 가기 이벤트 1회 동작
   };
 
   return (
@@ -39,7 +52,10 @@ const Editor = ({ initData, onSubmit }) => {
           </div>
         </div>
         <div className="editor_section">
-          <h4>작성 완료, 취소</h4>
+          <div className="editor_section bottom_section">
+            <Button text={"취소하기"} onclick={handleOnGoBack} />
+            <Button type={"positive"} text={"작성완료"} onclick={handleSubmit} />
+          </div>
         </div>
       </div>
     </>

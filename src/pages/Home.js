@@ -3,6 +3,10 @@ import Editor from "../components/Editor";
 import Header from "../components/Header";
 
 const Home = () => {
+  const onSubmit = () => {
+    alert("일기 작성 완료");
+  };
+
   return (
     <>
       <Header
@@ -26,7 +30,7 @@ const Home = () => {
           />
         }
       />
-      <Editor />
+      <Editor onSubmit={onSubmit} />
     </>
   );
 };
