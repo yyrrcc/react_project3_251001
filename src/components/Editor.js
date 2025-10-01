@@ -1,5 +1,5 @@
 import "../components/css/Editor.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getFormattedDate, emotionList } from "../Utils";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
@@ -38,6 +38,14 @@ const Editor = ({ initData, onSubmit }) => {
   const handleChangeEmotion = (emotionId) => {
     setState({ ...state, emotionId });
   };
+
+  // initData 변경 값이 있을 때마다(즉, 기존 값 존재하고 수정 버튼 눌렀을 때) useEffect 실행
+  // date값 -> getTime() -> 정수 -> 날짜형식 -> yyyy-MM-dd 로 변경
+  useEffect(() => {
+    if (initData) {
+      setState({ ...initData, date: getFormattedDate(new Date(parseInt(initData.date))) });
+    }
+  }, [initData]);
 
   return (
     <>
