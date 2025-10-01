@@ -1,4 +1,5 @@
 import Button from "../components/Button";
+import Editor from "../components/Editor";
 import Header from "../components/Header";
 
 const Home = () => {
@@ -25,26 +26,7 @@ const Home = () => {
           />
         }
       />
-      {/* <Button
-        text={"기본 버튼"}
-        onclick={() => {
-          alert("default btn");
-        }}
-      />
-      <Button
-        type={"positive"}
-        text={"긍정 버튼"}
-        onclick={() => {
-          alert("positive btn");
-        }}
-      />
-      <Button
-        type={"negative"}
-        text={"부정 버튼"}
-        onclick={() => {
-          alert("negative btn");
-        }}
-      /> */}
+      <Editor />
     </>
   );
 };

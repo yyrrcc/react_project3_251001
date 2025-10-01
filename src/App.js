@@ -10,10 +10,10 @@ function App() {
     // Controller - requestMapping 느낌
     <div className="App">
       <div>
-        <Link to={"/"}>홈</Link>
-        <Link to={"/new"}>일기쓰기</Link>
-        <Link to={"/diary"}>일기장</Link>
-        <Link to={"/edit"}>일기수정</Link>
+        <Link to={"/"}>홈 </Link>
+        <Link to={"/new"}>일기쓰기 </Link>
+        <Link to={"/diary"}>일기장 </Link>
+        <Link to={"/edit"}>일기수정 </Link>
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
