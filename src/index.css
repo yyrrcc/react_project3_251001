@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Diphylleia&family=Orbit&display=swap");
+.orbit-regular {
+  font-family: "Orbit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.diphylleia-regular {
+  font-family: "Diphylleia", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  font-family: "Orbit", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  background-color: rgb(124, 124, 124); /* 개구린 바탕화면 색 눈 아파서 적용해둠 */
+}
