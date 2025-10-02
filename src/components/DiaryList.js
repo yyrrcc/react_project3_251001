@@ -64,6 +64,12 @@ const DiaryList = ({ data }) => {
             <Button type={"positive"} text={"새 일기 쓰기"} onClick={onClickNew} />
           </div>
         </div>
+        {/* sortedData값을 리스트로 렌더링 */}
+        <div className="list_wrapper">
+          {sortedData.map((it) => (
+            <DiaryItem key={it.id} {...it} />
+          ))}
+        </div>
       </div>
     </>
   );
