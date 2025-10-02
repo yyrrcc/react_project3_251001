@@ -4,26 +4,26 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import Edit from "./pages/Edit";
 import Diary from "./pages/Diary";
-import { useEffect, useReducer, useRef, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
+
+//  App.js에서 일기 State 값을 공급하기 위한 Context.. (일반 값, dispatch 함수 나누기)
+export const DiaryStateContext = React.createContext();
+export const DiaryDispatchContext = React.createContext();
 
 function reducer(diaries, action) {
   switch (action.type) {
     case "CREATE":
       return [action.newDiary, ...diaries]; // [새로 만들어진 일기1개, ... 기존 일기 객체들의 배열]
-
     case "UPDATE":
       return diaries.map((it) =>
         // 기존 일기들 중에서 targetId와 동일한 일기 1개를 가져오고 updateDiary로 바꿔주기
         String(it.id) === String(action.updateDiary.id) ? { ...action.updateDiary } : it
       );
-
     case "DELETE":
       // id가 일치하지 않은 것들을 제외하고(필터링) 새로운 배열을 만들어서 반환해라
       return diaries.filter((it) => String(it.id) !== String(action.targetId));
-
     case "INIT":
       return action.mockData;
-
     default:
       return diaries;
   }
@@ -66,22 +66,26 @@ function App() {
     return <div>데이터를 불러오는 중입니다.</div>;
   } else {
     return (
-      <div className="App">
-        <div>
-          {/* 네비게이션 링크 이동 */}
-          <Link to={"/"}>홈 </Link>
-          <Link to={"/new"}>일기쓰기 </Link>
-          <Link to={"/diary"}>일기장 </Link>
-          <Link to={"/edit"}>일기수정 </Link>
-        </div>
-        {/* path, element : Controller @requestMapping 느낌 */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/new" element={<New />} />
-          <Route path="/diary/:id" element={<Diary />} />
-          <Route path="/edit" element={<Edit />} />
-        </Routes>
-      </div>
+      <DiaryStateContext.Provider value={diaries}>
+        <DiaryDispatchContext.Provider value={{ onCreate, onUpdate, onDelete }}>
+          <div className="App">
+            <div>
+              {/* 네비게이션 링크 이동 */}
+              <Link to={"/"}>홈 </Link>
+              <Link to={"/new"}>일기쓰기 </Link>
+              <Link to={"/diary"}>일기장 </Link>
+              <Link to={"/edit"}>일기수정 </Link>
+            </div>
+            {/* path, element : Controller @requestMapping 느낌 */}
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/new" element={<New />} />
+              <Route path="/diary/:id" element={<Diary />} />
+              <Route path="/edit" element={<Edit />} />
+            </Routes>
+          </div>
+        </DiaryDispatchContext.Provider>
+      </DiaryStateContext.Provider>
     );
   }
 }
