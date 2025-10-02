@@ -68,3 +68,10 @@ export const getFormattedDate = (targetDate) => {
 
   return `${year}-${month}-${date}`;
 };
+
+// 해당 월에 시작일과 끝나는 일을 나타내주는 함수
+export const getMonthRangeByDate = (date) => {
+  const beginTimeStamp = new Date(date.getFullYear(), date.getMonth(), 1).getTime(); // new Date(년, 월, 일).getTime()
+  const endTimeStamp = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59).getTime(); // 다음달 0일 23시 59분 59초
+  return { beginTimeStamp, endTimeStamp };
+};
