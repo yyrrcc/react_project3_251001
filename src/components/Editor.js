@@ -14,9 +14,6 @@ const Editor = ({ initData, onSubmit }) => {
     content: "",
   });
 
-  // 클라이언트 사이드 렌더링 방식으로 페이지를 이동하는 함수를 반환
-  const navigate = useNavigate();
-
   const handleChangeDate = (e) => {
     // 객체 안에 있는 key를 가져와서 값 변경해주기!
     setState({ ...state, date: e.target.value });
@@ -30,6 +27,8 @@ const Editor = ({ initData, onSubmit }) => {
     onSubmit(state); // 유저가 입력한 1개의 일기 객체를 보내준다
   };
 
+  // 클라이언트 사이드 렌더링 방식으로 페이지를 이동하는 함수를 반환
+  const navigate = useNavigate();
   const handleOnGoBack = () => {
     navigate(-1); // 뒤로 가기 이벤트 1회 동작
   };

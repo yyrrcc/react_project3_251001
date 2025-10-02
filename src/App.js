@@ -7,14 +7,15 @@ import Diary from "./pages/Diary";
 
 function App() {
   return (
-    // Controller - requestMapping 느낌
     <div className="App">
       <div>
+        {/* 네비게이션 링크 이동 */}
         <Link to={"/"}>홈 </Link>
         <Link to={"/new"}>일기쓰기 </Link>
         <Link to={"/diary"}>일기장 </Link>
         <Link to={"/edit"}>일기수정 </Link>
       </div>
+      {/* path, element : Controller @requestMapping 느낌 */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/new" element={<New />} />

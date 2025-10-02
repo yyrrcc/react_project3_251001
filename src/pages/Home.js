@@ -13,19 +13,19 @@ const Home = () => {
         title={"HOME"}
         leftChild={
           <Button
-            type={"negative"}
-            text={"부정 버튼"}
+            type={"positive"}
+            text={"긍정 버튼"}
             onclick={() => {
-              alert("negative btn");
+              alert("positive btn");
             }}
           />
         }
         rightChild={
           <Button
-            type={"positive"}
-            text={"긍정 버튼"}
+            type={"negative"}
+            text={"부정 버튼"}
             onclick={() => {
-              alert("positive btn");
+              alert("negative btn");
             }}
           />
         }
