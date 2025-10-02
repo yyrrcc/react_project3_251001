@@ -33,3 +33,24 @@
 .DiaryItem .img_section img {
   width: 50%;
 }
+
+.DiaryItem .info_section {
+  flex-grow: 1;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.DiaryItem .info_section .date_wrapper {
+  font-size: 18px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.DiaryItem .info_section .content_wrapper {
+  font-weight: lighter;
+  font-size: 16px;
+}
+
+.DiaryItem .button_section {
+  min-width: 70px;
+}
