@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "./Button";
 import "./css/DiaryList.css";
+import { useNavigate } from "react-router-dom";
 
 // 정렬 기능
 const sortOptionList = [
@@ -14,6 +15,12 @@ const DiaryList = ({ data }) => {
 
   const onChangeSortType = (e) => {
     setSortType(e.target.value);
+  };
+
+  // 이동을 위한 useNavigate
+  const navigate = useNavigate();
+  const onClickNew = () => {
+    navigate("/new");
   };
 
   return (
@@ -31,7 +38,7 @@ const DiaryList = ({ data }) => {
             </select>
           </div>
           <div className="right_col">
-            <Button type={"positive"} text={"새 일기 쓰기"} />
+            <Button type={"positive"} text={"새 일기 쓰기"} onClick={onClickNew} />
           </div>
         </div>
       </div>
