@@ -4,26 +4,92 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import Edit from "./pages/Edit";
 import Diary from "./pages/Diary";
+import { useEffect, useReducer, useRef, useState } from "react";
+
+function reducer(diaries, action) {
+  switch (action.type) {
+    case "CREATE":
+      return [action.newDiary, ...diaries]; // [새로 만들어진 일기1개, ... 기존 일기 객체들의 배열]
+
+    case "UPDATE":
+      return diaries.map((it) =>
+        // 기존 일기들 중에서 targetId와 동일한 일기 1개를 가져오고 updateDiary로 바꿔주기
+        String(it.id) === String(action.updateDiary.id) ? { ...action.updateDiary } : it
+      );
+
+    case "DELETE":
+      // id가 일치하지 않은 것들을 제외하고(필터링) 새로운 배열을 만들어서 반환해라
+      return diaries.filter((it) => String(it.id) !== String(action.targetId));
+
+    case "INIT":
+      return action.mockData;
+
+    default:
+      return diaries;
+  }
+}
 
 function App() {
-  return (
-    <div className="App">
-      <div>
-        {/* 네비게이션 링크 이동 */}
-        <Link to={"/"}>홈 </Link>
-        <Link to={"/new"}>일기쓰기 </Link>
-        <Link to={"/diary"}>일기장 </Link>
-        <Link to={"/edit"}>일기수정 </Link>
+  const [isDataLoaded, setIsDataLoaded] = useState(false); // 데이터 로딩 상태 알려주기 위해서
+
+  const idRef = useRef(0); // 기본키 id
+  const [diaries, dispatch] = useReducer(reducer, []); // diaries : 일기 객체들의 배열
+
+  // mockDate 넣어주기
+  useEffect(() => {
+    dispatch({ type: "INIT", mockData: mockData });
+    setIsDataLoaded(true);
+  }, []);
+
+  // CRUD
+  const onCreate = (date, content, emotionId) => {
+    dispatch({ type: "CREATE", newDiary: { id: idRef.current, date: new Date(date).getTime(), content, emotionId } });
+    idRef.current += 1;
+  };
+  const onUpdate = (targetId, date, content, emotionId) => {
+    dispatch({
+      type: "UPDATE",
+      updateDiary: {
+        id: targetId, // 수정 할 일기 1개의 id
+        date: new Date(date).getTime(),
+        content,
+        emotionId,
+      },
+    });
+  };
+  const onDelete = (targetId) => {
+    dispatch({ type: "DELETE", targetId });
+  };
+
+  // 데이터 로딩 상태에 따라 (false)데이터 불러오는 중이라고 알려주거나 (true)데이터 보여주거나
+  if (!isDataLoaded) {
+    return <div>데이터를 불러오는 중입니다.</div>;
+  } else {
+    return (
+      <div className="App">
+        <div>
+          {/* 네비게이션 링크 이동 */}
+          <Link to={"/"}>홈 </Link>
+          <Link to={"/new"}>일기쓰기 </Link>
+          <Link to={"/diary"}>일기장 </Link>
+          <Link to={"/edit"}>일기수정 </Link>
+        </div>
+        {/* path, element : Controller @requestMapping 느낌 */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/new" element={<New />} />
+          <Route path="/diary/:id" element={<Diary />} />
+          <Route path="/edit" element={<Edit />} />
+        </Routes>
       </div>
-      {/* path, element : Controller @requestMapping 느낌 */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/new" element={<New />} />
-        <Route path="/diary/:id" element={<Diary />} />
-        <Route path="/edit" element={<Edit />} />
-      </Routes>
-    </div>
-  );
+    );
+  }
 }
+
+const mockData = [
+  { id: "mock1", date: new Date().getTime, content: "첫번째 일기입니다.", emotionId: 3 },
+  { id: "mock2", date: new Date().getTime, content: "두번째입니다.", emotionId: 4 },
+  { id: "mock3", date: new Date().getTime, content: "3번째다.", emotionId: 1 },
+];
 
 export default App;
