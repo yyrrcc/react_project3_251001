@@ -67,13 +67,17 @@ const Editor = ({ initData, onSubmit }) => {
         <div className="editor_section">
           <h4>오늘의 일기</h4>
           <div className="input_wrapper">
-            <textarea value={state.content} onChange={handleChangeContent} placeholder="오늘 일기를 작성해보세요."></textarea>
+            <textarea
+              value={state.content}
+              onChange={handleChangeContent}
+              placeholder="오늘 일기를 작성해보세요."
+            ></textarea>
           </div>
         </div>
         <div className="editor_section">
           <div className="editor_section bottom_section">
             <Button text={"취소하기"} onclick={handleOnGoBack} />
-            <Button type={"positive"} text={"작성완료"} onclick={handleSubmit} />
+            <Button type={"positive"} text={"작성완료"} onClick={handleSubmit} />
           </div>
         </div>
       </div>

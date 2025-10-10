@@ -91,9 +91,9 @@ function App() {
 }
 
 const mockData = [
-  { id: "mock1", date: new Date().getTime() - 1, content: "첫번째 일기입니다.", emotionId: 3 },
-  { id: "mock2", date: new Date().getTime() - 2, content: "두번째입니다.", emotionId: 4 },
-  { id: "mock3", date: new Date().getTime() - 3, content: "3번째다.", emotionId: 1 },
+  { id: "mock1", date: new Date().getTime() - 1, content: "mock1mock1", emotionId: 3 },
+  { id: "mock2", date: new Date().getTime() - 2, content: "mock2mock2", emotionId: 4 },
+  { id: "mock3", date: new Date().getTime() - 3, content: "mock3mock3", emotionId: 1 },
 ];
 
 export default App;
