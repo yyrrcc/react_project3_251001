@@ -1,5 +1,5 @@
 import "../components/css/Editor.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { getFormattedDate, emotionList } from "../Utils";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
@@ -33,10 +33,10 @@ const Editor = ({ initData, onSubmit }) => {
     navigate(-1); // 뒤로 가기 이벤트 1회 동작
   };
 
-  // 감정 이미지 클릭하면 호출 할 이벤트 핸들러
-  const handleChangeEmotion = (emotionId) => {
-    setState({ ...state, emotionId });
-  };
+  // 감정 이미지 클릭하면 호출 할 이벤트 핸들러 (useCallBack 이용해서 최적화 시키기)
+  const handleChangeEmotion = useCallback((emotionId) => {
+    setState((state) => ({ ...state, emotionId }));
+  }, []);
 
   // initData 변경 값이 있을 때마다(즉, 기존 값 존재하고 수정 버튼 눌렀을 때) useEffect 실행
   // date값 -> getTime() -> 정수 -> 날짜형식 -> yyyy-MM-dd 로 변경
