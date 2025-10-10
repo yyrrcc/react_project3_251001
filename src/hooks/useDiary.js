@@ -15,7 +15,7 @@ const useDiary = (id) => {
     if (matchDiary) {
       setDiary(matchDiary);
     } else {
-      alert("일기가 존재하지 않습니다.");
+      // alert("일기가 존재하지 않습니다.");
       navigate("/", { replace: true }); // 페이지를 이동한 후 다시 돌아올 수 없도록 뒤로 가기 아이콘이 비활성화
     }
   }, [id, data]);
