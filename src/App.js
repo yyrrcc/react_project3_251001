@@ -47,20 +47,20 @@ function App() {
   //   dispatch({ type: "CREATE", data: { id: idRef.current, date: new Date(date).getTime(), content, emotionId } });
   //   idRef.current += 1;
   // };
-  const onUpdate = (targetId, date, content, emotionId) => {
-    dispatch({
-      type: "UPDATE",
-      data: {
-        id: targetId, // 수정 할 일기 1개의 id
-        date: new Date(date).getTime(),
-        content,
-        emotionId,
-      },
-    });
-  };
-  const onDelete = (targetId) => {
-    dispatch({ type: "DELETE", targetId });
-  };
+  // const onUpdate = (targetId, date, content, emotionId) => {
+  //   dispatch({
+  //     type: "UPDATE",
+  //     data: {
+  //       id: targetId, // 수정 할 일기 1개의 id
+  //       date: new Date(date).getTime(),
+  //       content,
+  //       emotionId,
+  //     },
+  //   });
+  // };
+  // const onDelete = (targetId) => {
+  //   dispatch({ type: "DELETE", targetId });
+  // };
 
   // *****백엔드 CRUD - C 새 일기 추가(순서가 중요함?)******
   const onCreate = (date, content, emotionId) => {
@@ -85,6 +85,21 @@ function App() {
       })
       .catch();
   }, []);
+  // *****백엔드 CRUD - U 일기 수정하기******
+  const onUpdate = (targetId, date, content, emotionId) => {
+    axios
+      .put(`http://localhost:8888/api/diary/${targetId}`, { date: new Date(date).getTime(), content, emotionId })
+      .then((res) => {
+        dispatch({ type: "UPDATE", data: res.data });
+      });
+  };
+  // *****백엔드 CRUD - D 일기 삭제하기(res값 필요없음)******
+  const onDelete = (targetId) => {
+    axios
+      .delete(`http://localhost:8888/api/diary/${targetId}`)
+      .then(dispatch({ type: "DELETE", targetId }))
+      .catch((err) => console.error(err));
+  };
 
   // 데이터 로딩 상태에 따라 (false)데이터 불러오는 중이라고 알려주거나 (true)데이터 보여주거나
   if (!isDataLoaded) {
