@@ -62,15 +62,24 @@ function App() {
   //   dispatch({ type: "DELETE", targetId });
   // };
 
-  // *****백엔드 CRUD - C 새 일기 추가(순서가 중요함?)******
-  const onCreate = (date, content, emotionId) => {
-    axios
-      .post("http://localhost:8888/api/diary", { date: new Date(date).getTime(), content, emotionId })
-      .then((res) => {
-        // res는 문제없이 백엔드 db에 삽입된 새 일기
-        dispatch({ type: "CREATE", data: res.data });
-      })
-      .catch();
+  // *****백엔드 CRUD - C 새 일기 추가******
+  // const onCreate = (date, content, emotionId) => {
+  //   axios
+  //     .post("http://localhost:8888/api/diary", { date: new Date(date).getTime(), content, emotionId })
+  //     .then((res) => {
+  //       // res는 문제없이 백엔드 db에 삽입된 새 일기
+  //       dispatch({ type: "CREATE", data: res.data });
+  //     })
+  //     .catch();
+  // };
+  // *****백엔드 CRUD - C 새 일기 추가(비동기 async, await)******
+  const onCreate = async (date, content, emotionId) => {
+    const res = await axios.post("http://localhost:8888/api/diary", {
+      date: new Date(date).getTime(),
+      content,
+      emotionId,
+    });
+    dispatch({ type: "CREATE", data: res.data });
   };
   // *****백엔드 CRUD - R 모든 일기 불러오기******
   useEffect(() => {
@@ -94,11 +103,20 @@ function App() {
       });
   };
   // *****백엔드 CRUD - D 일기 삭제하기(res값 필요없음)******
-  const onDelete = (targetId) => {
-    axios
-      .delete(`http://localhost:8888/api/diary/${targetId}`)
-      .then(dispatch({ type: "DELETE", targetId }))
-      .catch((err) => console.error(err));
+  // const onDelete = (targetId) => {
+  //   axios
+  //     .delete(`http://localhost:8888/api/diary/${targetId}`)
+  //     .then(dispatch({ type: "DELETE", targetId }))
+  //     .catch((err) => console.error(err));
+  // };
+  // *****백엔드 CRUD - D 일기 삭제하기(비동기 async, await)******
+  const onDelete = async (targetId) => {
+    try {
+      await axios.delete(`http://localhost:8888/api/diary/${targetId}`);
+      dispatch({ type: "DELETE", targetId });
+    } catch (error) {
+      console.error("일기 삭제 실패 ", error);
+    }
   };
 
   // 데이터 로딩 상태에 따라 (false)데이터 불러오는 중이라고 알려주거나 (true)데이터 보여주거나
